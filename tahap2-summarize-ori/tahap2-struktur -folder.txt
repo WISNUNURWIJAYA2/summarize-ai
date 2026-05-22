@@ -1,0 +1,116 @@
+tahap 2 :
+backend/
+│
+├── app/
+│   ├── main.py 
+│   │
+│   ├── api/
+│   │   ├── routes/
+│   │   │   ├── health.py
+│   │   │   ├── documents.py
+│   │   │   └── summaries.py
+│   │
+│   ├── core/
+│   │   └── config.py
+│   │
+│   ├── services/
+│   │
+│   ├── models/
+│   │
+│   ├── schemas/
+│   │
+│   └── utils/
+│
+├── requirements.txt
+│
+└── README.md
+
+tahap 3 :
+backend/
+│
+├── app/
+│   ├── api/
+│   │   └── routes/
+│   │       └── documents.py
+│   │
+│   ├── services/
+│   │   └── file_service.py
+│   │
+│   ├── schemas/
+│   │   └── document_schema.py
+│   │
+│   └── utils/
+│       └── file_utils.py
+│
+├── uploads/
+│
+└── requirements.txt
+
+tahap 4 :
+backend/
+│
+├── app/
+│   ├── services/
+│   │   ├── file_service.py
+│   │   └── parsing_service.py
+│   │
+│   ├── schemas/
+│   │   └── parsing_schema.py
+
+
+
+    Fungsi Tiap Folder
+app/main.py
+Pintu masuk FastAPI.
+Tugas:
+membuat app
+register routes
+jalankan backend
+
+api/routes/
+Tempat endpoint API.
+Contoh:
+health.py : untuk test backend hidup
+documents.py : nanti upload dokumen
+summaries.py : nanti hasil AI summary
+
+core/
+Konfigurasi project.
+Contoh:
+env
+settings
+constants
+
+services/
+Logic utama aplikasi.
+Contoh nanti:
+parser PDF
+AI summarizer
+embedding service
+
+    Saat ini masih kosong.
+models/
+Model database.
+Contoh nanti:
+Document
+Summary
+ActionItem
+
+    Saat ini belum perlu isi.
+schemas/
+Pydantic schema request/response.
+Contoh nanti:
+upload request
+response summary
+
+utils/
+Helper utilities.
+Contoh:
+file helper
+logger
+validator
+
+HOW TO RUN :
+uvicorn app.main:app --reload
+
+localhost:8000/docs
