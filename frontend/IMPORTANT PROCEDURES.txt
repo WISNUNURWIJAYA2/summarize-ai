@@ -1,9 +1,0 @@
-Features
-Slider for 'depth' of summary
-
-API
-
-documents/upload (pdf)
-documents/parse (excel) [deprecated]
-
-/summaries 
