@@ -4,7 +4,7 @@
 	import InferBox from '$lib/components/inferenceBox.svelte';
 	import DescBox from '$lib/components/descriptionBox.svelte';
 
-    let files = $state<File[]>([])
+    let files = $state<File[]>([]);
     let detail = $state(0);
 
     let mobile = false; //figure out how to store variables

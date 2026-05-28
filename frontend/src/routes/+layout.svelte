@@ -1,4 +1,5 @@
 <script lang="ts">
+	import axios from 'axios';
 	let { children } = $props();
 </script>
 

@@ -8,9 +8,9 @@
     let curfile  = $state<FileList|undefined>(undefined);
     let fileInput = $state<HTMLInputElement | undefined>(undefined);
     let min,max,step;
-    min = 10
-    max = 90
-    step = 1
+    min = 30
+    max = 70
+    step = 20
     
     onMount(() => {
         if (fileInput) {
@@ -27,6 +27,12 @@
             curfile = undefined;
         }
     }
+
+    $effect(() => {
+        if (detail == 70){
+            detail = 80;
+        }
+    })
 
     function yoho() {
         console.log(files)
@@ -62,6 +68,7 @@
                 {step}
                 bind:value={detail} 
                 class="custom-slider"
+                style="appearance: none; background:linear-gradient(to right, #22d3ee 0%, #22d3ee {detail}%, #1e293b {detail}%, #1e293b 100%)"
             />
     </div>
 </div>

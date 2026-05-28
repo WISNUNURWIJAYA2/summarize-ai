@@ -1,4 +1,5 @@
 <script lang="js">
+	import axios from 'axios';
     import {simulatedUpload} from '../../utils/mockAPI.js';
 
     let apiResult = $state("Test");
@@ -19,29 +20,22 @@
             const fileToUpload = files[0];
             const formData = new FormData();
             formData.append('file', fileToUpload);
-            formData.append('detail_level', detail.toString()); //no need for detail for now
-
-            const response = await fetch('http://127.0.0.1:8000/documents/upload', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json().catch(() => ({ detail: 'Server Error' }));
-                throw new Error(errorData.detail || `Server error: ${response.status}`);
-            }
-
-            const res = await response.json();
-            apiResult = res.status || "File uploaded successfully!";
-
-            const sumRes = await fetch('http://127.0.0.1:8000/documents/upload', {
-                method: 'GET',
-            });
+            formData.append('detail_level', detail); //no need for detail for now
+            
+            let uploadEndpoint = 'http://127.0.0.1:8000/documents/upload';
+            let parseEndpoint = 'http://127.0.0.1:8000/documents/parse';
+            const res = await axios.post(uploadEndpoint, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            
+            apiResult = res.status.toString() || "File uploaded successfully!";
 
             getSummary();
         } catch (error) {
             apiResult = error.message || "Something went wrong";
-            console.error("Caught API Dropout:", errorMessage);
+            console.error("Caught API Dropout:", error.message);
         } finally {
             isUploading = false;
             return
@@ -50,18 +44,13 @@
 
     async function getSummary() {
         try {
-            const response = await fetch('http://127.0.0.1:8000/summaries', {
-                method: 'GET',
-            });
+            let summaryEndpoint = 'http://127.0.0.1:8000/summaries/';
+            const res = await axios.get(summaryEndpoint)
 
-            if (!response.ok) {
-                throw new Error(errorData.detail || `Failed to get summaries: ${response.status}`);
-            }
-
-            const res = await response.json();
-            summaryResult = res.message
+            summaryResult = res.data.message
+            console.log(res)
         } catch (error) {
-            apiResult = error.message || "Something went wrong";
+            summaryResult = error.message || "Something went wrong";
             console.error("Caught API Dropout:", errorMessage);
         } finally {
             return
