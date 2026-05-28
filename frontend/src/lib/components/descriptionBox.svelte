@@ -1,4 +1,4 @@
-<div id="desc-box" class="main-box">
+<div id="desc-box" class="main-box flex-1">
     <div id="web-info">
         <h2>SUMMA AI</h2>
         <p>Merupakan aplikasi untuk merangkum dokumen menggunakan AI.</p>

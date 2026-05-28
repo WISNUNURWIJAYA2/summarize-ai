@@ -14,7 +14,7 @@
 @import '../app.css';
 </style>
 
-<div id='main-app'>
+<div id='main-app' class="flex flex-row justify-around w-full h-[90vh] gap-2">
     <DocumentBox bind:files={files} bind:detail={detail} />
     <InferBox bind:files={files} bind:detail={detail}/>
     <DescBox />

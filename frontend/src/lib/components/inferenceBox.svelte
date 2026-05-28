@@ -59,15 +59,15 @@
 
 </script>
 
-<div id="infer-box" class="main-box">
+<div id="infer-box" class="main-box flex flex-col flex-[3_1_0] justify-between">
     <div id="infer-res">
-        <h1>SUMMA AI</h1>
+        <h1 class="text-4xl font-bold">SUMMA AI</h1>
         {#if true}
         <p>Status: {apiResult}</p>
         <p>Inference result: {summaryResult}</p>
         {/if}
     </div>
-    <div id="infer-button">
+    <div id="infer-button" class="relative">
         <button onclick={uploadFile} class="sum-button">
             <b>Buat Rangkuman Dokumen</b>
         </button>

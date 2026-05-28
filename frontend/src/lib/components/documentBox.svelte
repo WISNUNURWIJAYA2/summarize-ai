@@ -3,7 +3,7 @@
     
     
 
-    let { files = $bindable([]), detail = $bindable(10) } = $props();
+    let { files = $bindable([]), detail = $bindable(30) } = $props();
 
     let curfile  = $state<FileList|undefined>(undefined);
     let fileInput = $state<HTMLInputElement | undefined>(undefined);
@@ -11,6 +11,7 @@
     min = 30
     max = 70
     step = 20
+    let detLen = $state(0);
     
     onMount(() => {
         if (fileInput) {
@@ -32,18 +33,21 @@
         if (detail == 70){
             detail = 80;
         }
+        calcLen();
     })
 
-    function yoho() {
-        console.log(files)
-        return
+    function calcLen() {
+        if(detail == 30){detLen = 0}
+        else if(detail == 50){detLen = 50}
+        else if(detail == 80){detLen = 100}
+        else {detLen = detail}
     }
 </script>
 
 
-<div id="doc-box" class="main-box">
+<div id="doc-box" class="main-box flex flex-col flex-1 justify-between">
     <div id="doc-list">
-        <label>
+        <label class="w-full">
             <input type="file" bind:files={curfile} bind:this={fileInput} onchange={handleFileSelection} accept=".pdf,.txt,.docx" style="display: none;"/>
             <span class="sum-button"><b>Unggah dokumen di sini</b></span>
         </label>
@@ -59,7 +63,7 @@
             {/if}
         </div>
     </div>
-    <div id="doc-pow-slider">
+    <div id="doc-pow-slider" class="relative w-full">
             <p><b>Tingkat Detail:</b> {detail}%</p>
             <input 
                 type="range" 
@@ -67,8 +71,8 @@
                 {max} 
                 {step}
                 bind:value={detail} 
-                class="custom-slider"
-                style="appearance: none; background:linear-gradient(to right, #22d3ee 0%, #22d3ee {detail}%, #1e293b {detail}%, #1e293b 100%)"
+                class="custom-slider w-full border-4 border-brand-dark2 rounded-xl"
+                style="appearance: none; background:linear-gradient(to right, #22d3ee 0%, #22d3ee {detLen}%, #1e293b {detLen}%, #1e293b 100%)"
             />
     </div>
 </div>
