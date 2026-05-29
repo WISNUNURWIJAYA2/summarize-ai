@@ -11,7 +11,7 @@
     min = 30
     max = 70
     step = 20
-    let detLen = $state(0);
+    let barColor = $state("#000000")
     
     onMount(() => {
         if (fileInput) {
@@ -29,6 +29,16 @@
         }
     }
 
+    function triggerFileInput(event: MouseEvent | KeyboardEvent) {
+        if (event.type === 'keydown') {
+        const keyEvent = event as KeyboardEvent;
+        if (keyEvent.key !== 'Enter' && keyEvent.key !== ' ') return;
+        event.preventDefault(); // Stop page from scrolling on Spacebar
+        }
+        
+        fileInput.click();
+    }
+
     $effect(() => {
         if (detail == 70){
             detail = 80;
@@ -37,10 +47,10 @@
     })
 
     function calcLen() {
-        if(detail == 30){detLen = 0}
-        else if(detail == 50){detLen = 50}
-        else if(detail == 80){detLen = 100}
-        else {detLen = detail}
+        if(detail == 30){barColor = "#100520"}
+        else if(detail == 50){barColor = "#3060b0"}
+        else if(detail == 80){barColor = "#80bbff"}
+        else {barColor = "#100520"}
     }
 </script>
 
@@ -49,7 +59,9 @@
     <div id="doc-list">
         <label class="w-full">
             <input type="file" bind:files={curfile} bind:this={fileInput} onchange={handleFileSelection} accept=".pdf,.txt,.docx" style="display: none;"/>
-            <span class="sum-button"><b>Unggah dokumen di sini</b></span>
+            <span class="sum-button" tabindex="0" role="button" onkeydown={triggerFileInput}>
+                <b>Unggah dokumen di sini</b>
+            </span>
         </label>
         <div id="doc-file-list">
         
@@ -71,8 +83,8 @@
                 {max} 
                 {step}
                 bind:value={detail} 
-                class="custom-slider w-full border-4 border-brand-dark2 rounded-xl"
-                style="appearance: none; background:linear-gradient(to right, #22d3ee 0%, #22d3ee {detLen}%, #1e293b {detLen}%, #1e293b 100%)"
+                class="custom-slider w-full border-4 border-brand-dark2 rounded-xl py-2 overflow-visible"
+                style="--dynamic-track-color: {barColor};"
             />
     </div>
 </div>

@@ -7,7 +7,7 @@
     let files = $state<File[]>([]);
     let detail = $state(0);
 
-    let mobile = false; //figure out how to store variables
+    let mobile = $state(true); //figure out how to store variables
 </script>
 
 <style>

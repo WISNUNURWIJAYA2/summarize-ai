@@ -17,7 +17,7 @@
             {#if true} <!--Desktop-->
             <li>Klik tombol "Rangkum" pada jendela tengah.</li>
             {:else} <!--Mobile-->
-            <li>Tekan tombol "Rangkum" pada jendela tengah.</li>
+            <li>Tekan tombol "Rangkum".</li>
             {/if}
         </ol>
     </div>
@@ -25,7 +25,7 @@
     <div id="tech-info">
         <h2>Teknologi</h2>
         <p>Kami menggunakan LangChain untuk membuat rangkuman teks dari dokumen yang diberikan. Menggunakan slider, Anda dapat mengatur tingkat detail pada hasil rangkuman.</p>
-        <p class="TEMP">Tolong bantu isi sisanya.</p>
+        <p class="TEMP hidden">Tolong bantu isi sisanya.</p>
     </div>
     <hr>
     <div id="team-info">

@@ -2,22 +2,42 @@
 	import axios from 'axios';
     import {simulatedUpload} from '../../utils/mockAPI.js';
 
-    let apiResult = $state("Test");
-    let summaryResult = $state("Test");
+    let debug = false;
+    let apiResult = $state([]);
+    let summaryResult = $state([]);
     let isUploading = $state(false);
 
     let { files = $bindable([]), detail = $bindable(10) } = $props();
 
-    async function uploadFile() {
+    async function handleUploads() {
         if (files.length === 0) return;
+
+        isUploading = true;
+
+        apiResult = [];
+        summaryResult = [];
+
+        for (let i = 0; i < files.length; i++) {
+            const currentFile = files[i]
+
+            const uploadString = await uploadFile(i);
+            apiResult.push({ 
+                filename: currentFile.name, 
+                status: uploadString 
+            });
+            const summaryString = await getSummary();
+            summaryResult.push({ 
+                filename: currentFile.name, 
+                summary: summaryString 
+            });
+        };
+
+        isUploading = false;
+    }
+
+    async function uploadFile(index){
         try {
-
-            isUploading = true;
-            /* Testing simulated
-            const res = await simulatedUpload(files);
-            */
-
-            const fileToUpload = files[0];
+            const fileToUpload = files[index];
             const formData = new FormData();
             formData.append('file', fileToUpload);
             formData.append('detail_level', detail); //no need for detail for now
@@ -30,15 +50,10 @@
                 }
             })
             
-            apiResult = res.status.toString() || "File uploaded successfully!";
-
-            getSummary();
+            return res.status.toString() || "File uploaded successfully!";
         } catch (error) {
-            apiResult = error.message || "Something went wrong";
             console.error("Caught API Dropout:", error.message);
-        } finally {
-            isUploading = false;
-            return
+            return error.message || "Something went wrong";
         }
     }
 
@@ -47,28 +62,36 @@
             let summaryEndpoint = 'http://127.0.0.1:8000/summaries/';
             const res = await axios.get(summaryEndpoint)
 
-            summaryResult = res.data.message
             console.log(res)
+            return res.data.message
         } catch (error) {
-            summaryResult = error.message || "Something went wrong";
             console.error("Caught API Dropout:", errorMessage);
-        } finally {
-            return
+            return error.message || "Something went wrong";
         }
     }
 
 </script>
 
+
 <div id="infer-box" class="main-box flex flex-col flex-[3_1_0] justify-between">
     <div id="infer-res">
         <h1 class="text-4xl font-bold">SUMMA AI</h1>
-        {#if true}
+        {#if debug == true}
         <p>Status: {apiResult}</p>
-        <p>Inference result: {summaryResult}</p>
+        {/if}
+        {#if summaryResult.length > 0}
+            {#each summaryResult as sum}
+                <hr>
+                <h2>{sum.filename}</h2>
+                <p>{sum.summary}</p>
+            {/each}
+        {:else}
+            <hr>
+            <p>Upload file terlebih dahulu.</p>
         {/if}
     </div>
     <div id="infer-button" class="relative">
-        <button onclick={uploadFile} class="sum-button">
+        <button onclick={handleUploads} class="sum-button">
             <b>Buat Rangkuman Dokumen</b>
         </button>
     </div>
