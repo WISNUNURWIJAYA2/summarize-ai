@@ -39,19 +39,19 @@
         fileInput.click();
     }
 
-    $effect(() => {
-        if (detail == 70){
-            detail = 80;
-        }
-        calcLen();
-    })
-
-    function calcLen() {
+    function barColorize() {
         if(detail == 30){barColor = "#100520"}
         else if(detail == 50){barColor = "#3060b0"}
         else if(detail == 80){barColor = "#80bbff"}
         else {barColor = "#100520"}
     }
+
+    $effect(() => {
+        if (detail == 70){
+            detail = 80;
+        }
+        barColorize();
+    })
 </script>
 
 

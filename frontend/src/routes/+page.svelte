@@ -2,6 +2,7 @@
     
 	import DocumentBox from '$lib/components/documentBox.svelte';
 	import InferBox from '$lib/components/inferenceBox.svelte';
+	import ComboBox from '$lib/components/docinfComboBox.svelte';
 	import DescBox from '$lib/components/descriptionBox.svelte';
 
     let files = $state<File[]>([]);
@@ -15,7 +16,6 @@
 </style>
 
 <div id='main-app' class="flex flex-row justify-around w-full h-[90vh] gap-2">
-    <DocumentBox bind:files={files} bind:detail={detail} />
-    <InferBox bind:files={files} bind:detail={detail}/>
+    <ComboBox bind:files={files} bind:detail={detail} />
     <DescBox />
 </div>

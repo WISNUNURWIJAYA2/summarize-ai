@@ -40,7 +40,7 @@
             const fileToUpload = files[index];
             const formData = new FormData();
             formData.append('file', fileToUpload);
-            formData.append('detail_level', detail); //no need for detail for now
+            formData.append('ratio', detail); //no need for detail for now
             
             let uploadEndpoint = 'http://127.0.0.1:8000/documents/upload';
             let parseEndpoint = 'http://127.0.0.1:8000/documents/parse';
