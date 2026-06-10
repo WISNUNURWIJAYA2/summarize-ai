@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+    --color-brand-lighter: #bedeff;
+    --color-brand-light: #aaceff;
+    --color-brand-color: #8facd1;
+    --color-brand-unhigh: #6fa0be;
+    --color-brand-dark: #050505;
+    --color-brand-dark2: #102040;
+    --color-brand-darker: #000508;
+    --color-good-red: #b02040;
+    --color-dark-red: #501005;
+}
+
+@layer base {
+    body {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color: var(--color-brand-darker);
+        color: var(--color-brand-light);
+        margin: 0.5rem;
+        overflow: hidden;
+    }
+    h2 {
+        font-size: large;
+        font-weight: 700;
+    }
+    hr {
+        margin: 0.5rem 0;
+    }
+}
+
+
+
+.main-box {
+    overflow-y: scroll;
+    overflow-x: auto;
+    overflow-wrap: break-word;
+    background-color: var(--color-brand-dark2);
+    height: 98vh;
+    border: 4px solid var(--color-brand-color);
+    border-radius: 16px;
+    padding: 1rem;
+    padding-top: 0.5rem;
+    text-align: justify;
+    text-justify: inter-ideograph;
+}
+
+.TEMP {
+    color: #f44;
+    text-decoration: underline;
+}
+
+.custom-slider {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: var(--dynamic-track-color, #000); 
+  height: 0.8rem;
+  border-radius: 4px;
+  border: 2px solid transparent;
+}
+
+input[type="range"]::-moz-range-track {
+  background-color: var(--dynamic-track-color, #000); 
+  height: 0.8rem;
+  border-radius: 4px;
+  border: 2px solid transparent;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -0.2rem;
+  border: 4px solid var(--color-brand-light);
+  background-color: var(--color-brand-color);
+  height: 1rem;
+  width: 0.25rem;
+  border-radius: 10%;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+  border: 3px solid var(--color-brand-light);
+  background-color: var(--color-brand-color);
+  height: 1rem;
+  width: 0.25rem;
+  border-radius: 10%;
+  transition: transform 0.1s ease, background-color 0.1s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  border-color: var(--color-brand-light);
+  background-color: var(--color-brand-light);
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  border-color: var(--color-brand-light);
+  background-color: var(--color-brand-light);
+}
+
+.sum-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: var(--color-brand-darker);
+  color: var(--color-brand-color);
+  border: 4px solid var(--color-brand-color);
+  border-radius: 8px; 
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  transition: transform 0.1s;
+}
+
+.sum-button:hover {
+  background-color: var(--color-brand-dark2);
+  color: var(--color-brand-light);
+}
+
+
+.sum-button:active {
+  border-color: var(--color-brand-light);
+  background-color: var(--color-brand-color);
+  color: var(--color-brand-dark);
+  transform: scale(0.98);
+}
