@@ -1,4 +1,4 @@
-# SummarAI — Ringkas Dokumen dengan MT5
+# SummaAI — Ringkas Dokumen dengan MT5
 
 Aplikasi web untuk meringkas dokumen PDF, DOCX, dan TXT menggunakan model MT5 (Multilingual Text-to-Text Transfer Transformer). Mendukung Bahasa Indonesia dan Bahasa Inggris.
 
