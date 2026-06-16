@@ -54,7 +54,7 @@ SUMAARIZE-mt5/
 ### 1. Clone atau ekstrak proyek
 ---
 
-### 2. Buat Virtual Environment
+### 2. Buat Virtual Environment & Install model
 
 ```bash
 # Buat venv
@@ -82,6 +82,9 @@ pip install -r requirements.txt
 ```
 
 > Proses ini mungkin memakan waktu cukup lama karena mengunduh library ML seperti transformers dan torch.
+
+install model
+<https://huggingface.co/nui1/mt5model/tree/main>
 
 ---
 
