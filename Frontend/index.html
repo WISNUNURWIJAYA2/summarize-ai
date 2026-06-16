@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SummaAI — Ringkas Dokumen</title>
+  <link rel="icon" type="image/png" href="img\link-logo.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between">
+        <a class="brand" href="#">
+          <img src="img\brandSUMAI.png" alt="SummaAI logo" class="brand-img" />
+          SummaAI
+        </a>
+        <span class="badge-model">MT5 Model</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <div class="main-wrap">
+
+    <!-- Upload card -->
+    <div class="card-panel" id="upload-card">
+      <p class="section-label">Unggah Dokumen</p>
+
+      <div id="drop-zone" role="button" aria-label="Unggah file dokumen" tabindex="0">
+        <i class="bi bi-cloud-arrow-up dz-icon"></i>
+        <p class="dz-title mb-0">Seret file ke sini atau klik untuk memilih</p>
+        <p class="dz-sub mb-0 mt-1">PDF, DOCX, TXT · Maks. 10 MB</p>
+        <input type="file" id="file-input" accept=".pdf,.docx,.txt" />
+      </div>
+
+      <div class="file-badge" id="file-badge">
+        <i class="bi bi-file-earmark-check-fill text-success fs-5"></i>
+        <span class="fname" id="file-name-display">—</span>
+        <span class="fsize" id="file-size-display"></span>
+        <button class="btn-remove-file" id="btn-remove-file" title="Hapus file" aria-label="Hapus file">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <!-- Error -->
+      <div class="error-box mt-3" id="error-box" role="alert">
+        <i class="bi bi-exclamation-triangle-fill flex-shrink-0 mt-1"></i>
+        <span id="error-msg">Terjadi kesalahan.</span>
+      </div>
+
+      <p class="fw-bold fst-italic mt-2 mb-0" style="font-size: 0.9rem; color: #dc7a00;">
+        <i class="bi bi-exclamation-triangle-fill me-1"></i>
+        Ringkas dokumen hanya berlaku di Bahasa Inggris dan Indonesia.
+      </p>
+    </div>
+
+    <!-- Ratio card -->
+    <div class="card-panel">
+      <p class="section-label">Rasio Ringkasan</p>
+      <div class="ratio-group" id="ratio-group" role="radiogroup" aria-label="Pilih rasio ringkasan">
+        <label class="ratio-btn active" data-value="30">
+          <input type="radio" name="ratio" value="30" checked />
+          <div class="rnum">30%</div>
+          <div class="rlabel">Singkat</div>
+        </label>
+        <label class="ratio-btn" data-value="50">
+          <input type="radio" name="ratio" value="50" />
+          <div class="rnum">50%</div>
+          <div class="rlabel">Sedang</div>
+        </label>
+        <label class="ratio-btn" data-value="80">
+          <input type="radio" name="ratio" value="80" />
+          <div class="rnum">80%</div>
+          <div class="rlabel">Lengkap</div>
+        </label>
+      </div>
+
+      <div class="progress-bar-wrap mt-3" id="progress-wrap">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <button type="button" class="btn-summarize" id="btn-summarize" disabled>
+      <i class="bi bi-lightning-charge-fill"></i>
+      Ringkas Dokumen
+    </button>
+
+    <!-- Loading -->
+    <div class="card-panel mt-4" id="loading-panel">
+      <div class="spinner-ring"></div>
+      <p class="mb-0 fw-semibold" style="color:var(--text-main);">Sedang memproses…</p>
+      <div class="loading-steps" id="loading-steps">
+        <div class="loading-step" data-step="0">
+          <span class="step-dot"></span> Membaca &amp; mengurai dokumen
+        </div>
+        <div class="loading-step" data-step="1">
+          <span class="step-dot"></span> Tokenisasi teks
+        </div>
+        <div class="loading-step" data-step="2">
+          <span class="step-dot"></span> MT5 menghasilkan ringkasan
+        </div>
+        <div class="loading-step" data-step="3">
+          <span class="step-dot"></span> Menyusun hasil &amp; generate PDF
+        </div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div id="result-panel">
+      <div class="card-panel">
+        <div class="d-flex align-items-center justify-content-between mb-1">
+          <p class="section-label mb-0">Hasil Ringkasan</p>
+          <span class="meta-chip" id="ratio-chip"></span>
+        </div>
+        <hr class="divider" />
+
+        <div class="result-meta" id="result-meta"></div>
+
+        <div id="summary-text" aria-live="polite"></div>
+
+        <div class="result-actions">
+          <button class="btn-action btn-copy" id="btn-copy">
+            <i class="bi bi-clipboard"></i> Salin
+          </button>
+          <button class="btn-action btn-download-pdf" id="btn-download-pdf">
+            <i class="bi bi-file-earmark-pdf-fill"></i> Unduh PDF
+          </button>
+          <button class="btn-action btn-new" id="btn-new">
+            <i class="bi bi-arrow-counterclockwise"></i> Dokumen baru
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main-wrap -->
+
+  <!-- App Footer -->
+  <footer class="app-footer">
+    <div class="container text-center">
+      <div class="footer-capstone">CAPSTONE PROJECT PIJAK 2026</div>
+      <div class="footer-credits">
+        &copy; Team PJK-GM055
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast-wrap" aria-live="polite">
+    <div class="toast-msg" id="toast-msg"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
